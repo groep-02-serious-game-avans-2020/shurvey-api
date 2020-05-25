@@ -1,8 +1,16 @@
 import * as mongoose from 'mongoose';
-import { prop } from 'typegoose';
+import { prop, buildSchema, getModelForClass } from '@typegoose/typegoose';
 
 export class User {
-  _id: mongoose.Schema.Types.ObjectId;
+  constructor(props: Partial<User>) {
+    Object.assign(this, props);
+  }
+
+  get id() {
+    return this._id.toHexString();
+  }
+
+  _id: mongoose.Types.ObjectId;
 
   @prop({ required: true, unique: true, index: true })
   email: string;
@@ -13,3 +21,11 @@ export class User {
   @prop({ required: true })
   password: string;
 }
+
+export const UserModel = getModelForClass(User);
+export const UserSchema = buildSchema(User, {
+  toJSON: { versionKey: false },
+  toObject: {
+    versionKey: false,
+  },
+});
