@@ -1,8 +1,8 @@
 import * as mongoose from 'mongoose';
 import { prop, buildSchema, getModelForClass } from '@typegoose/typegoose';
 
-export class User {
-  constructor(props: Partial<User>) {
+export class QR {
+  constructor(props: Partial<QR>) {
     Object.assign(this, props);
   }
 
@@ -13,20 +13,11 @@ export class User {
   _id: mongoose.Types.ObjectId;
 
   @prop({ required: true, unique: true, index: true })
-  email: string;
-
-  @prop({ required: true })
-  displayName: string;
-
-  @prop({ required: true })
-  password: string;
-
-  @prop({ required: false })
-  scannedQrs: Array<string>
+  code: string;
 }
 
-export const UserModel = getModelForClass(User);
-export const UserSchema = buildSchema(User, {
+export const QRModel = getModelForClass(QR);
+export const QRSchema = buildSchema(QR, {
   toJSON: { versionKey: false },
   toObject: {
     versionKey: false,
