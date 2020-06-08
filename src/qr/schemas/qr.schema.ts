@@ -14,6 +14,11 @@ export class QR {
 
   @prop({ required: true, unique: true, index: true })
   code: string;
+
+  survey: {
+    ref: 'Survey',
+    type: mongoose.Schema.Types.ObjectId,
+  }
 }
 
 export const QRModel = getModelForClass(QR);

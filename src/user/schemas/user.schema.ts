@@ -21,8 +21,7 @@ export class User {
   @prop({ required: true })
   password: string;
 
-  @prop({ required: false })
-  scannedQrs: Array<string>
+  scannedQrs: [{ type: mongoose.Types.ObjectId, ref: 'QR' }]
 }
 
 export const UserModel = getModelForClass(User);
